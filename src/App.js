@@ -68,6 +68,7 @@ const App = () => {
        */
       console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
+      getNumberOfNFTs();
       // Setup listener! This is for the case where a user comes to our site
       // and connected their wallet for the first time.
       setupEventListener();
@@ -156,7 +157,7 @@ const App = () => {
           signer
         );
         let numberOfNFTs = await connectedContract.getTotalNFTsMintedSoFar();
-        let v = parseInt(numberOfNFTs, 10)
+        let v = parseInt(numberOfNFTs, 10);
         console.log(v);
         setNumberOfNFTs(v);
       }
@@ -187,18 +188,21 @@ const App = () => {
           <p className='sub-text'>
             Each unique. Each beautiful. Discover your NFT today.
           </p>
-          <p className='sub-text'>
-            {numberOfNFTs}/{TOTAL_MINT_COUNT} NFTs minted..Mint yours ASAP
-          </p>
+
           {currentAccount === '' ? (
             renderNotConnectedContainer()
           ) : (
-            <button
-              onClick={askContractToMintNft}
-              className='cta-button connect-wallet-button'
-            >
-              Mint NFT
-            </button>
+            <>
+              <p className='mint-count'>
+                {numberOfNFTs}/{TOTAL_MINT_COUNT} NFTs minted..Mint yours ASAP
+              </p>
+              <button
+                onClick={askContractToMintNft}
+                className='cta-button connect-wallet-button'
+              >
+                Mint NFT
+              </button>
+            </>
           )}
         </div>
         <div className='footer-container'>
@@ -209,8 +213,13 @@ const App = () => {
             target='_blank'
             rel='noreferrer'
           >{`built on @${TWITTER_HANDLE}`}</a>
-          
-          
+          .....<p className="footer-text">by</p>.
+          <a
+            className='footer-text'
+            href="https://twitter.com/swetashaw_"
+            target='_blank'
+            rel='noreferrer'
+          >{`@swetashaw_`}</a>
         </div>
       </div>
     </div>
